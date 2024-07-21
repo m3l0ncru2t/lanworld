@@ -5,10 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Show the current element
-                entry.target.style.opacity = '1';
-                entry.target.style.visibility = 'visible';
-                
+                // Make sure only the current element is visible
+                contents.forEach((content, index) => {
+                    if (index <= currentIndex) {
+                        content.style.opacity = '1';
+                        content.style.visibility = 'visible';
+                    } else {
+                        content.style.opacity = '0';
+                        content.style.visibility = 'hidden';
+                    }
+                });
+
                 // Move to the next element in the sequence
                 currentIndex++;
                 if (currentIndex < contents.length) {
