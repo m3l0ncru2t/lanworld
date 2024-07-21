@@ -1,112 +1,32 @@
-body {
-    font-family: Arial, sans-serif;
-    color: greenyellow;
-    align-content: center;
-}
-
-#comment-section {
-    width: 380px;
+/* styles.css */
+#content-container {
+    width: 80%;
     margin: 0 auto;
 }
 
-#landing-page, #register-form, #login-form {
+#loading-spinner {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-#register-form input, #login-form input {
-    display: block;
-    margin: 10px auto;
-}
-
-#comment-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#avatar-upload {
-    display: none; /* Hides the file input */
-}
-
-#user-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-#comment-text {
-    flex-grow: 1;
     padding: 10px;
-    margin-right: 10px;
 }
-
-#comments {
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
-
-.comment {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 5px;
-    width: 380px;
-    border: 1px solid #ddd; /* Optional: adds a border around each comment */
-    border-radius: 5px; /* Optional: rounds the corners of the comment box */
-    background-color: #f9f9f9; /* Optional: adds a background color */
-    word-wrap: break-word; /* Ensures long words or URLs break onto the next line */
-    overflow-wrap: break-word; /* Ensures long words or URLs break onto the next line */
-}
-
-/* Avatar styles */
-.comment img.avatar {
-    width: 10%; /* Avatar size */
-    height: 10%;
-    border-radius: 50%; /* Circle for avatars */
-    margin-right: 10px;
-}
-
-/* Comment image styles */
-.comment img.comment-image {
-    max-width: 55%; /* Ensure the image fits within the comment box */
-    height: auto; /* Maintain aspect ratio */
-    border: 1px solid #ddd;
-    border-radius: 5px; /* Optional: rounded corners for images */
-    margin-top: 10px;
-}
-
-.comment p {
+/* styles.css */
+body {
     margin: 0;
-    flex-grow: 1;
-    overflow-wrap: anywhere; /* Ensures long words or URLs break onto the next line */
+    font-family: Arial, sans-serif;
 }
 
-.comment-image {
-    max-width: 100%; /* Ensure the image fits within the comment box */
-    height: auto; /* Maintain aspect ratio */
-    margin-top: 10px;
+#content-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.content-segment {
+    padding: 20px;
+    margin: 10px 0;
     border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
-.username {
-    font-weight: bold;
-    color: yellow; /* Change this to the desired color */
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: #888; /* Color for timestamp */
-    margin-left: 5px; /* Space between comment text and timestamp */
-}
-
-.delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 10px; /* Adds space between the comment text and delete button */
-    cursor: pointer;
+#loading-spinner {
+    text-align: center;
+    padding: 10px;
+    display: none;
 }
