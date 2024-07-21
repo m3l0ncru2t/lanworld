@@ -183,6 +183,149 @@ function displayComment(comment) {
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const appDiv = document.getElementById('app');
+    const API_URL = 'http://localhost:3000';
+
+    function loadLoginSection() {
+        appDiv.innerHTML = `
+            <div id="login-section">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="Username" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <button id="show-register">Register</button>
+            </div>
+        `;
+        const showRegisterButton = document.getElementById('show-register');
+        const loginForm = document.getElementById('login-form');
+
+        showRegisterButton.addEventListener('click', loadRegisterSection);
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    function loadRegisterSection() {
+        appDiv.innerHTML = `
+            <div id="register-section">
+                <h2>Register</h2>
+                <form id="register-form">
+                    <input type="text" id="register-username" placeholder="Username" required>
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <button id="show-login">Login</button>
+            </div>
+        `;
+        const showLoginButton = document.getElementById('show-login');
+        const registerForm = document.getElementById('register-form');
+
+        showLoginButton.addEventListener('click', loadLoginSection);
+        registerForm.addEventListener('submit', handleRegister);
+    }
+
+    function loadCommentSection() {
+        const username = localStorage.getItem('username');
+        appDiv.innerHTML = `
+            <div id="comment-section">
+                <div id="user-info">
+                    <img id="avatar" src="user-avatar.png" alt="Avatar">
+                    <span id="user-name">${username}</span>
+                </div>
+                <textarea id="comment-box" placeholder="Write your comment here..."></textarea>
+                <button id="post-comment">Post Comment</button>
+                <div id="comments">
+                    <!-- Comments will appear here -->
+                </div>
+                <button id="logout">Logout</button>
+            </div>
+        `;
+        const postCommentButton = document.getElementById('post-comment');
+        const logoutButton = document.getElementById('logout');
+
+        postCommentButton.addEventListener('click', postComment);
+        logoutButton.addEventListener('click', handleLogout);
+
+        fetchComments();
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+
+        if (localStorage.getItem(`user-${username}`) === password) {
+            localStorage.setItem('username', username);
+            loadCommentSection();
+        } else {
+            alert('Invalid credentials');
+        }
+    }
+
+    function handleRegister(event) {
+        event.preventDefault();
+        const username = document.getElementById('register-username').value;
+        const password = document.getElementById('register-password').value;
+
+        if (!localStorage.getItem(`user-${username}`)) {
+            localStorage.setItem(`user-${username}`, password);
+            alert('Registration successful. Please log in.');
+            loadLoginSection();
+        } else {
+            alert('Username already exists.');
+        }
+    }
+
+    async function postComment() {
+        const commentText = document.getElementById('comment-box').value;
+        const username = localStorage.getItem('username');
+
+        if (commentText.trim()) {
+            const response = await fetch(`${API_URL}/comments`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, text: commentText })
+            });
+
+            if (response.ok) {
+                const comment = await response.json();
+                addCommentToDom(comment);
+                document.getElementById('comment-box').value = '';
+            }
+        }
+    }
+
+    async function fetchComments() {
+        const response = await fetch(`${API_URL}/comments`);
+        if (response.ok) {
+            const comments = await response.json();
+            comments.forEach(addCommentToDom);
+        }
+    }
+
+    function addCommentToDom(comment) {
+        const commentsDiv = document.getElementById('comments');
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment');
+        commentDiv.innerHTML = `<strong>${comment.username}</strong>: ${comment.text}`;
+        commentsDiv.appendChild(commentDiv);
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('username');
+        loadLoginSection();
+    }
+
+    // Initial load
+    if (localStorage.getItem('username')) {
+        loadCommentSection();
+    } else {
+        loadLoginSection();
+    }
+});
 
 
 
