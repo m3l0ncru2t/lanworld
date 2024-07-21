@@ -51,6 +51,7 @@ body {
     align-items: center;
     margin-bottom: 10px;
     padding: 5px;
+    width: 300px;
     border: 1px solid #ddd; /* Optional: adds a border around each comment */
     border-radius: 5px; /* Optional: rounds the corners of the comment box */
     background-color: #f9f9f9; /* Optional: adds a background color */
