@@ -1,17 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     color: greenyellow;
-    align-items: center
-    
 }
 
 #comment-section {
-    
+    width: 500px;
     margin: 0 auto;
 }
 
 #landing-page, #register-form, #login-form {
-    
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -22,7 +20,7 @@ body {
 
 #comment-input {
     display: flex;
-    
+    align-items: center;
     margin-bottom: 20px;
 }
 
@@ -50,7 +48,7 @@ body {
 
 .comment {
     display: flex;
-   
+    align-items: center;
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid #ddd; /* Optional: adds a border around each comment */
