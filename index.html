@@ -4,17 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lazy Load RSS Feeds</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .rss-feed {
+            border: 1px solid #ddd;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .rss-feed ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .rss-feed li {
+            margin-bottom: 8px;
+        }
+        .rss-feed a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .rss-feed a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>RSS Feed Loader</h1>
-    </header>
-    
-    <main>
-        <div id="feed-container"></div>
-    </main>
+    <h1>Lazy Load RSS Feeds</h1>
 
-    <script src="script.js"></script>
+    <!-- RSS Feed Containers -->
+    <div class="rss-feed" data-url="https://feeds.megaphone.fm/newheights">Loading RSS Feed 1...</div>
+    <div class="rss-feed" data-url="https://example.com/rss2.xml">Loading RSS Feed 2...</div>
+
+    <script>
+        // Function to fetch RSS feed
+        async function fetchRssFeed(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            return text;
+        }
+
+        // Function to parse RSS feed
+        function parseRssFeed(xmlText) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+            const items = xmlDoc.querySelectorAll('item');
+            return Array.from(items).map(item => ({
+                title: item.querySelector('title').textContent,
+                link: item.querySelector('link').textContent,
+                description: item.querySelector('description').textContent,
+            }));
+        }
+
+        // Function to render RSS feed content
+        function renderFeed(element, items) {
+            const list = document.createElement('ul');
+            items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="${item.link}" target="_blank">${item.title}</a><p>${item.description}</p>`;
+                list.appendChild(listItem);
+            });
+            element.innerHTML = ''; // Clear loading message
+            element.appendChild(list);
+        }
+
+        // Function to create Intersection Observer for lazy loading
+        function createObserver(element, url) {
+            const observer = new IntersectionObserver(async (entries) => {
+                if (entries[0].isIntersecting) {
+                    observer.unobserve(element);
+
+                    const xmlText = await fetchRssFeed(url);
+                    const items = parseRssFeed(xmlText);
+                    renderFeed(element, items);
+                }
+            });
+
+            observer.observe(element);
+        }
+
+        // Initialize lazy loading for all RSS feed containers
+        document.querySelectorAll('.rss-feed').forEach(div => {
+            const url = div.getAttribute('data-url');
+            createObserver(div, url);
+        });
+    </script>
 </body>
 </html>
