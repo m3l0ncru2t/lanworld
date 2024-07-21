@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazy Load on Scroll</title>
+    <title>Sequential Lazy Load on Scroll</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<center>
-
     <header>
         <h1>My Scrolling Page</h1>
     </header>
@@ -19,35 +17,26 @@
             <p>This content is always loaded.</p>
         </section>
         
-        <section class="extra-content" id="extra-content-1">
-            <h2>Extra Content 1</h2>
-            <p>This content will be loaded as you scroll.</p>
-        </section>
+        <div class="content-to-load" id="div-1">
+            <h2>Div 1</h2>
+            <p>This div will be loaded first.</p>
+        </div>
 
-        <section class="extra-content" id="extra-content-2">
-            <h2>Extra Content 2</h2>
-            <p>This content will also be loaded as you scroll.</p>
-        </section>
+        <div class="content-to-load" id="div-2">
+            <h2>Div 2</h2>
+            <p>This div will be loaded second.</p>
+        </div>
 
-        <section class="extra-content" id="extra-content-3">
-            <h2>Extra Content 3</h2>
-            <p>More content loaded as you scroll.</p>
-        </section>
-
-        <section class="extra-content" id="extra-content-4">
-            <div id="you-want-lazyload" style="height: 450px; width:380px;border:5px solid gold;background-color: black;font: 13px Georgia, Garamond, Serif;overflow:auto;">
-                <script src="//rss.bloople.net/?url=https%3A%2F%2Fwww.metalblade.com%2Fus%2Ffeed%2F&showicon=true&type=js"></script>
-                </div>
-        </section>
-
-        <section class="extra-content" id="extra-content-5">
-            <div id="you-want-lazyload" style="height:450px; width: 380px;border:5px solid gold;background-color: black;font:13px Georgia, Garamond, Serif;overflow:auto;">
+            <div class="content-to-load" id="div-3" id="you-want-lazyload" style="height:450px; width: 380px;border:5px solid gold;background-color: black;font:13px Georgia, Garamond, Serif;overflow:auto;">
                 <script style="max-height:777px;max-width:666px;" src="//rss.bloople.net/?url=https%3A%2F%2Fblabbermouth.net%2Ffeed&showtitle=false&type=js"></script>
                 </div>
-        </section>
+
+      
+            <div class="content-to-load" id="div-4" style="height:450px; width: 380px;border:5px solid gold;background-color: black;font:13px Georgia, Garamond, Serif;overflow:auto;">
+                <script style="max-height:777px;max-width:666px;" src="//rss.bloople.net/?url=http%3A%2F%2Ffeeds.feedburner.com%2Fmetalinjection&showicon=true&type=js"></script>
+                </div>
     </main>
 
     <script src="script.js"></script>
 </body>
-</center>
 </html>
