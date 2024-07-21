@@ -1,32 +1,23 @@
-/* styles.css */
-#content-container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-#loading-spinner {
-    text-align: center;
-    padding: 10px;
-}
-/* styles.css */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
 }
 
-#content-container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-.content-segment {
-    padding: 20px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-}
-
-#loading-spinner {
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em;
     text-align: center;
-    padding: 10px;
-    display: none;
+}
+
+main {
+    padding: 1em;
+}
+
+.extra-content {
+    margin-top: 50vh; /* Position extra content further down */
+    opacity: 0; /* Initially hide extra content */
+    transition: opacity 0.5s ease;
 }

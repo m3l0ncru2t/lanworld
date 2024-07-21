@@ -3,35 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite Scroll Example</title>
+    <title>Lazy Load on Scroll</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="content-container">
-        <!-- Content segments will be loaded here -->
-    </div>
-    <div id="loading-spinner">Loading...</div>
+<center>
+
+    <header>
+        <h1>My Scrolling Page</h1>
+    </header>
+    
+    <main>
+        <section id="content">
+            <h2>Main Content</h2>
+            <p>This content is always loaded.</p>
+        </section>
+        
+        <section class="extra-content" id="extra-content-1">
+            <h2>Extra Content 1</h2>
+            <p>This content will be loaded as you scroll.</p>
+        </section>
+
+        <section class="extra-content" id="extra-content-2">
+            <h2>Extra Content 2</h2>
+            <p>This content will also be loaded as you scroll.</p>
+        </section>
+
+        <section class="extra-content" id="extra-content-3">
+            <h2>Extra Content 3</h2>
+            <p>More content loaded as you scroll.</p>
+        </section>
+
+        <section class="extra-content" id="extra-content-4">
+            <div id="you-want-lazyload" style="height: 450px; width:380px;border:5px solid gold;background-color: black;font: 13px Georgia, Garamond, Serif;overflow:auto;">
+                <script src="//rss.bloople.net/?url=https%3A%2F%2Fwww.metalblade.com%2Fus%2Ffeed%2F&showicon=true&type=js"></script>
+                </div>
+        </section>
+
+        <section class="extra-content" id="extra-content-5">
+            <div id="you-want-lazyload" style="height: 450px; width:380px;border:5px solid gold;background-color: black;font: 13px Georgia, Garamond, Serif;overflow:auto;">
+                <script src="//rss.bloople.net/?url=https%3A%2F%2Fwww.metalblade.com%2Fus%2Ffeed%2F&showicon=true&type=js"></script>
+                </div>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Load Sections</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <button id="loadSection1">Load Section 1</button>
-    <button id="loadSection2">Load Section 2</button>
-    <div id="content"></div>
-
-    <script>
-        $('#loadSection1').on('click', function() {
-            $('#content').load('section1.html');
-        });
-        $('#loadSection2').on('click', function() {
-            $('#content').load('section2.html');
-        });
-    </script>
-</body>
+</center>
 </html>

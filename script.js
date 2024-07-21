@@ -1,37 +1,24 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    let loading = false;
-    const contentContainer = document.getElementById('content-container');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    
-    const loadContent = async () => {
-        if (loading) return;
-        loading = true;
-        loadingSpinner.style.display = 'block';
+    // Select all elements with the class 'extra-content'
+    const extraContents = document.querySelectorAll('.extra-content');
 
-        // Simulate a network request
-        await new Promise(resolve => setTimeout(resolve, 1000));
+    // Create an Intersection Observer to watch the extra content
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Show the extra content when it comes into view
+                entry.target.style.opacity = '1';
+                // Stop observing after the content has been loaded
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null, // Use the viewport as the root
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
 
-        // Load new content
-        for (let i = 0; i < 3; i++) {
-            const newSegment = document.createElement('div');
-            newSegment.className = 'content-segment';
-            newSegment.innerHTML = `<p>Content segment ${contentContainer.children.length + 1}</p>`;
-            contentContainer.appendChild(newSegment);
-        }
-
-        loadingSpinner.style.display = 'none';
-        loading = false;
-    };
-
-    const handleScroll = () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-            loadContent();
-        }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Initial load
-    loadContent();
+    // Start observing each extra content element
+    extraContents.forEach(content => {
+        observer.observe(content);
+    });
 });
