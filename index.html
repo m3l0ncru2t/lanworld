@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Box and RSS Feeds</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js" type="module"></script>
+</head>
+<body>
+    <header>
+        <h1>My Website</h1>
+    </header>
+    <main>
+        <section class="comment-section">
+            <h2>Leave a Comment</h2>
+            <div id="auth-container">
+                <button id="login-btn">Login</button>
+                <button id="logout-btn" style="display: none;">Logout</button>
+            </div>
+            <textarea id="comment-input" placeholder="Write your comment here..."></textarea>
+            <button id="submit-btn" disabled>Submit</button>
+            <div id="comments-container"></div>
+        </section>
+        <section class="rss-feed-section">
+            <h2>RSS Feeds</h2>
+            <div id="rss-feed-container"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My Website</p>
+    </footer>
+    <script src="firebase-config.js" type="module"></script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
