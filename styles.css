@@ -48,7 +48,7 @@ body {
 
 .comment {
     display: flex;
-    align-items: center;
+   
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid #ddd; /* Optional: adds a border around each comment */
