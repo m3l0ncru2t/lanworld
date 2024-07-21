@@ -185,7 +185,8 @@ function displayComment(comment) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const appDiv = document.getElementById('app');
-    const API_URL = 'https://github.com/m3l0ncru2t/lanworld';
+    const API_URL = 'https://api.github.com/repos/m3l0ncru2t/lanworld/issues';
+    const TOKEN = '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'; // Store securely on server side
 
     function loadLoginSection() {
         appDiv.innerHTML = `
@@ -199,11 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button id="show-register">Register</button>
             </div>
         `;
-        const showRegisterButton = document.getElementById('show-register');
-        const loginForm = document.getElementById('login-form');
-
-        showRegisterButton.addEventListener('click', loadRegisterSection);
-        loginForm.addEventListener('submit', handleLogin);
+        document.getElementById('show-register').addEventListener('click', loadRegisterSection);
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
     }
 
     function loadRegisterSection() {
@@ -218,11 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button id="show-login">Login</button>
             </div>
         `;
-        const showLoginButton = document.getElementById('show-login');
-        const registerForm = document.getElementById('register-form');
-
-        showLoginButton.addEventListener('click', loadLoginSection);
-        registerForm.addEventListener('submit', handleRegister);
+        document.getElementById('show-login').addEventListener('click', loadLoginSection);
+        document.getElementById('register-form').addEventListener('submit', handleRegister);
     }
 
     function loadCommentSection() {
@@ -241,16 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button id="logout">Logout</button>
             </div>
         `;
-        const postCommentButton = document.getElementById('post-comment');
-        const logoutButton = document.getElementById('logout');
-
-        postCommentButton.addEventListener('click', postComment);
-        logoutButton.addEventListener('click', handleLogout);
+        document.getElementById('post-comment').addEventListener('click', postComment);
+        document.getElementById('logout').addEventListener('click', handleLogout);
 
         fetchComments();
     }
 
-    function handleLogin(event) {
+    async function handleLogin(event) {
         event.preventDefault();
         const username = document.getElementById('login-username').value;
         const password = document.getElementById('login-password').value;
@@ -263,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function handleRegister(event) {
+    async function handleRegister(event) {
         event.preventDefault();
         const username = document.getElementById('register-username').value;
         const password = document.getElementById('register-password').value;
@@ -282,27 +274,50 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = localStorage.getItem('username');
 
         if (commentText.trim()) {
-            const response = await fetch(`${API_URL}/comments`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, text: commentText })
-            });
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `token ${TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: `Comment by ${username}`,
+                        body: commentText
+                    })
+                });
 
-            if (response.ok) {
-                const comment = await response.json();
-                addCommentToDom(comment);
-                document.getElementById('comment-box').value = '';
+                if (response.ok) {
+                    const comment = await response.json();
+                    addCommentToDom(comment);
+                    document.getElementById('comment-box').value = '';
+                } else {
+                    alert('Failed to post comment');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error posting comment');
             }
         }
     }
 
     async function fetchComments() {
-        const response = await fetch(`${API_URL}/comments`);
-        if (response.ok) {
-            const comments = await response.json();
-            comments.forEach(addCommentToDom);
+        try {
+            const response = await fetch(API_URL, {
+                headers: {
+                    'Authorization': `token ${TOKEN}`
+                }
+            });
+
+            if (response.ok) {
+                const comments = await response.json();
+                comments.forEach(addCommentToDom);
+            } else {
+                alert('Failed to load comments');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error loading comments');
         }
     }
 
@@ -310,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const commentsDiv = document.getElementById('comments');
         const commentDiv = document.createElement('div');
         commentDiv.classList.add('comment');
-        commentDiv.innerHTML = `<strong>${comment.username}</strong>: ${comment.text}`;
+        commentDiv.innerHTML = `<strong>${comment.user.login}</strong>: ${comment.body}`;
         commentsDiv.appendChild(commentDiv);
     }
 
