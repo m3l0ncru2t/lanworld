@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    padding: 1em;
+}
+
+.content-to-load {
+    margin-top: 2vh; /* Position further down the page */
+    opacity: 0; /* Initially hide content */
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    visibility: hidden; /* Ensure content is hidden from the layout */
+    height: 100vh; /* Ensure each div occupies full viewport height */
+}
