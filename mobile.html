@@ -33,7 +33,7 @@ padding: 10px 20;
 <style>
   .segment {
       height: 100vh; /* Full viewport height */
-      border-bottom: 1px solid #ccc;
+      border-bottom: 0px solid #ccc;
   }
   .hidden {
       display: none;
@@ -79,6 +79,8 @@ border-radius: 10px;
 background: yellow; 
 }
 </style>
+
+
 </head>
 
 
@@ -182,6 +184,7 @@ background: yellow;
     <br>
 
     <div class="hidden segment" id="segment2">
+
 <!-- SUMERIAN  -->
 
     <!-- logo  -->
@@ -647,7 +650,7 @@ background: yellow;
     <br>
 
 
-  </div>
+ </div>
 
 
 
@@ -708,20 +711,16 @@ background: yellow;
   document.addEventListener('scroll', function () {
       const segment2 = document.getElementById('segment2');
       const segment3 = document.getElementById('segment3');
-      
       const windowHeight = window.innerHeight;
-      
+
       if (segment2.getBoundingClientRect().top < windowHeight) {
           segment2.classList.remove('hidden');
       }
-      if (segment3.getBoundingClientRect().top < windowHeight) {
+
+      if (segment2.getBoundingClientRect().bottom <= windowHeight) {
           segment3.classList.remove('hidden');
       }
-     
-      
   });
-
-
 </script>
 
 </body>
