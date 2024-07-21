@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     color: greenyellow;
+    align-items: center
+    justify-content: center;
 }
 
 #comment-section {
