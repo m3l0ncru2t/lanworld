@@ -345,34 +345,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    const contentContainer = document.getElementById('content-container');
-    const loadMoreButton = document.getElementById('load-more');
-    let currentSegment = 0;
-    const segments = [
-        '<div class="content-segment">Segment 1 Content</div>',
-        '<div class="content-segment">Segment 2 Content</div>',
-        '<div class="content-segment">Segment 3 Content</div>',
-        '<div class="content-segment">Segment 4 Content</div>',
-        // Add more segments as needed
-    ];
+    const loadMoreButton = document.getElementById('loadMore');
+    const segments = document.querySelectorAll('.segment');
+    let currentSegmentIndex = 0;
 
-    function loadSegment() {
-        if (currentSegment < segments.length) {
-            contentContainer.innerHTML += segments[currentSegment];
-            currentSegment++;
+    const showNextSegment = () => {
+        if (currentSegmentIndex < segments.length) {
+            segments[currentSegmentIndex].classList.add('visible');
+            currentSegmentIndex++;
         } else {
-            loadMoreButton.style.display = 'none'; // Hide button if no more segments
+            loadMoreButton.textContent = 'No more content';
+            loadMoreButton.disabled = true;
         }
-    }
+    };
 
-    loadMoreButton.addEventListener('click', loadSegment);
+    loadMoreButton.addEventListener('click', showNextSegment);
 
-    // Optionally, load the first segment on page load
-    loadSegment();
+    // Load the first segment initially (optional)
+    showNextSegment();
 });
 
 

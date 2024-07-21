@@ -11,6 +11,93 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segmented Loading</title>
+  <style>
+      .segment {
+          display: none;
+          margin: 20px 0;
+      }
+      .visible {
+          display: block;
+      }
+  </style>
+</head>
+<body>
+  <button id="loadMore">Load More</button>
+  <div id="content">
+      <div class="segment" id="segment1">Segment 1 content...</div>
+      <div class="segment" id="segment2">Segment 2 content...</div>
+      <div class="segment" id="segment3">Segment 3 content...</div>
+      <!-- Add more segments as needed -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <head>
 	<font color= "greenyellow">
@@ -30,56 +117,6 @@ padding: 10px 20;
 <link rel="stylesheet" href="styles.css">
 
 
-<style>
-  .loading-spinner { color: #999; }
-  .lazy-loaded { opacity: 1; transition: opacity 0.3s; }
-  .lazy-load { opacity: 0; }
-</style>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const lazyDivs = document.querySelectorAll('.lazy-load');
-
-    const loadContent = (div) => {
-      const url = div.dataset.contentUrl;
-      const spinner = div.querySelector('.loading-spinner');
-      fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.text();
-        })
-        .then(data => {
-          div.innerHTML = data;
-          div.classList.remove('lazy-load'); // Optionally remove class
-          div.classList.add('lazy-loaded'); // Add class to make content visible
-          if (spinner) spinner.style.display = 'none'; // Hide spinner
-        })
-        .catch(error => {
-          console.error('Error loading content:', error);
-          if (spinner) spinner.textContent = 'Failed to load content'; // Optionally display error message
-        });
-    };
-
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            loadContent(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      });
-
-      lazyDivs.forEach(div => observer.observe(div));
-    } else {
-      // Fallback for older browsers
-      lazyDivs.forEach(div => loadContent(div));
-    }
-  });
-
-  $('#you-want-lazyload').lazyload(options);
-</script>
 
 
 <!-- SCROLLBAR W/ COLOUR -->
@@ -121,11 +158,14 @@ background: yellow;
 }
 </style>
 
-<style>
-  .content-segment {
-      margin: 20px 0;
-  }
-</style>
+
+
+
+
+
+
+
+
 
 </head>
 
