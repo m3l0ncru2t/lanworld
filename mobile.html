@@ -30,7 +30,54 @@ padding: 10px 20;
 <link rel="stylesheet" href="styles.css">
 
 
+<style>
+  .loading-spinner { color: #999; }
+  .lazy-loaded { opacity: 1; transition: opacity 0.3s; }
+  .lazy-load { opacity: 0; }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const lazyDivs = document.querySelectorAll('.lazy-load');
 
+    const loadContent = (div) => {
+      const url = div.dataset.contentUrl;
+      const spinner = div.querySelector('.loading-spinner');
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          div.innerHTML = data;
+          div.classList.remove('lazy-load'); // Optionally remove class
+          div.classList.add('lazy-loaded'); // Add class to make content visible
+          if (spinner) spinner.style.display = 'none'; // Hide spinner
+        })
+        .catch(error => {
+          console.error('Error loading content:', error);
+          if (spinner) spinner.textContent = 'Failed to load content'; // Optionally display error message
+        });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            loadContent(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+
+      lazyDivs.forEach(div => observer.observe(div));
+    } else {
+      // Fallback for older browsers
+      lazyDivs.forEach(div => loadContent(div));
+    }
+  });
+</script>
 
 
 <!-- SCROLLBAR W/ COLOUR -->
@@ -169,7 +216,7 @@ background: yellow;
 
   
 <!-- info -->
-<div style="height: 450px; width:380px;border:5px solid gold;background-color: black;font: 13px Georgia, Garamond, Serif;overflow:auto;">
+<div class="lazy-load" style="height: 450px; width:380px;border:5px solid gold;background-color: black;font: 13px Georgia, Garamond, Serif;overflow:auto;">
     <script src="//rss.bloople.net/?url=https%3A%2F%2Fwww.metalblade.com%2Fus%2Ffeed%2F&showicon=true&type=js"></script>
     </div>
     
