@@ -730,7 +730,7 @@ background: yellow;
   const observer = new IntersectionObserver(handleIntersection, {
       root: null, // Use the viewport as the root
       rootMargin: '0px',
-      threshold: 0.1 // Trigger when 50% of the segment is visible
+      threshold: 0.5 // Trigger when 50% of the segment is visible
   });
 
   // Observe segments
