@@ -94,7 +94,7 @@ img {
 <center>
 
 
- <div style="height: 134px; width: 666px;">
+ <div class="segment" id="segment1" style="height: 134px; width: 666px;">
 <img id="top" src="banner.png" alt="banner"> 
 </div>
 
@@ -249,7 +249,7 @@ img {
 
 <!-- METALBLADE / METL INJECTION -->
 
-<div id="lables" style="position:relative; height: 700px; width: 600px;">
+<div class="segment hidden" id="segment2" style="position:relative; height: 700px; width: 600px;">
 
         <!-- logo  -->
   <img style="position: absolute; right: -125px; height: 50px; width: 112px; background-color: red;" src="mi.png" alt="metalinjection">
@@ -645,6 +645,35 @@ img {
 <a style="text-align: center; color:rgb(251, 255, 0); font-family:sans-serif;font-size:1.1em;" href="shinfo.html">| shINFO |</a> <a style="color:rgb(0, 20, 8);"> --</a>
 
  <h1 style="color:gold;">~~~~~~~~~~~~~~~~~~~~~~</h1>
+
+
+ <script>
+  document.addEventListener('scroll', function () {
+      const segment2 = document.getElementById('segment2');
+      const segment3 = document.getElementById('segment3');
+      const segment = document.getElementById('segment')
+      const windowHeight = window.innerHeight;
+      
+      if (segment2.getBoundingClientRect().top < windowHeight) {
+          segment2.classList.remove('hidden');
+      }
+      if (segment3.getBoundingClientRect().top < windowHeight) {
+          segment3.classList.remove('hidden');
+      }
+      if (segment.getBoundingClientRect().top < windowHeight) {
+          segment.classList.remove('hidden');
+      }
+  });
+
+
+</script>
+
+
+
+
+
+
+
 </body>
 
 	<h1 style="color: gold">lanworld.net 2021-2024</h1>

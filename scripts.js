@@ -186,7 +186,7 @@ function displayComment(comment) {
 document.addEventListener('DOMContentLoaded', () => {
     const appDiv = document.getElementById('app');
     const API_URL = 'https://api.github.com/repos/m3l0ncru2t/lanworld/issues';
-    const TOKEN = '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'; // Store securely on server side
+    const TOKEN = ''; // Store securely on server side
 
     function loadLoginSection() {
         appDiv.innerHTML = `
