@@ -185,7 +185,7 @@ function displayComment(comment) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const appDiv = document.getElementById('app');
-    const API_URL = 'https://m3l0ncru2t.github.io/lanworld/';
+    const API_URL = 'https://github.com/m3l0ncru2t/lanworld';
 
     function loadLoginSection() {
         appDiv.innerHTML = `
