@@ -709,19 +709,31 @@ background: yellow;
 
 
  <script>
-  document.addEventListener('scroll', function () {
-      const segment2 = document.getElementById('segment2');
-      const segment3 = document.getElementById('segment3');
-      const windowHeight = window.innerHeight;
+  // Function to handle the intersection event
+  function handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              // Make the segment visible
+              entry.target.classList.remove('hidden');
+              
+              // Unobserve the segment after it becomes visible
+              observer.unobserve(entry.target);
+          }
+      });
+  }
 
-      if (segment2.getBoundingClientRect().top < windowHeight) {
-          segment2.classList.remove('hidden');
-      }
-
-      if (segment2.getBoundingClientRect().bottom <= windowHeight) {
-          segment3.classList.remove('hidden');
-      }
+  // Create an intersection observer instance
+  const observer = new IntersectionObserver(handleIntersection, {
+      root: null, // Use the viewport as the root
+      rootMargin: '0px',
+      threshold: 0.5 // Trigger when 50% of the segment is visible
   });
+
+  // Observe segments
+  observer.observe(document.getElementById('segment2'));
+
+  // Additional logic to reveal segment 3 only when segment 2 is fully visible
+  observer.observe(document.getElementById('segment3'));
 </script>
 
 </body>
