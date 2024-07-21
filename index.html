@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lazy Load RSS Feeds</title>
+    <title>Load RSS Feeds on Button Click</title>
     <style>
         .rss-feed {
             border: 1px solid #ddd;
@@ -27,11 +27,15 @@
     </style>
 </head>
 <body>
-    <h1>Lazy Load RSS Feeds</h1>
+    <h1>Load RSS Feeds on Button Click</h1>
+
+    <!-- Button to load RSS feeds -->
+    <button id="loadFeed1">Load RSS Feed 1</button>
+    <button id="loadFeed2">Load RSS Feed 2</button>
 
     <!-- RSS Feed Containers -->
-    <div class="rss-feed" data-url="https://feeds.megaphone.fm/newheights">Loading RSS Feed 1...</div>
-    <div class="rss-feed" data-url="https://example.com/rss2.xml">Loading RSS Feed 2...</div>
+    <div id="feed1" class="rss-feed">Click the button to load RSS Feed 1...</div>
+    <div id="feed2" class="rss-feed">Click the button to load RSS Feed 2...</div>
 
     <script>
         // Function to fetch RSS feed
@@ -65,25 +69,21 @@
             element.appendChild(list);
         }
 
-        // Function to create Intersection Observer for lazy loading
-        function createObserver(element, url) {
-            const observer = new IntersectionObserver(async (entries) => {
-                if (entries[0].isIntersecting) {
-                    observer.unobserve(element);
-
-                    const xmlText = await fetchRssFeed(url);
-                    const items = parseRssFeed(xmlText);
-                    renderFeed(element, items);
-                }
-            });
-
-            observer.observe(element);
+        // Function to load RSS feed on button click
+        async function loadFeed(feedId, url) {
+            const element = document.getElementById(feedId);
+            const xmlText = await fetchRssFeed(url);
+            const items = parseRssFeed(xmlText);
+            renderFeed(element, items);
         }
 
-        // Initialize lazy loading for all RSS feed containers
-        document.querySelectorAll('.rss-feed').forEach(div => {
-            const url = div.getAttribute('data-url');
-            createObserver(div, url);
+        // Set up event listeners for buttons
+        document.getElementById('loadFeed1').addEventListener('click', () => {
+            loadFeed('feed1', 'https://example.com/rss1.xml');
+        });
+
+        document.getElementById('loadFeed2').addEventListener('click', () => {
+            loadFeed('feed2', 'https://example.com/rss2.xml');
         });
     </script>
 </body>
