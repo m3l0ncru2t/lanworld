@@ -48,38 +48,7 @@ height: 100%;
 }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const lazyDivs = document.querySelectorAll('.lazy-load');
-  
-    const loadContent = (div) => {
-      const url = div.dataset.contentUrl;
-      fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          div.innerHTML = data;
-          div.classList.remove('lazy-load'); // Optionally remove class
-        })
-        .catch(error => console.error('Error loading content:', error));
-    };
-  
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            loadContent(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      });
-  
-      lazyDivs.forEach(div => observer.observe(div));
-    } else {
-      // Fallback for older browsers
-      lazyDivs.forEach(div => loadContent(div));
-    }
-  });
-  </script>
+
   
 
 <style>
@@ -116,7 +85,7 @@ background: yellow;
 
 
 
- <div class="segment" id="segment1" style="height: 67px; width: 333px;">
+ <div style="height: 67px; width: 333px;">
 <img src="banner.png" alt="banner"> 
 </div>
 

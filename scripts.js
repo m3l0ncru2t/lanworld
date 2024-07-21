@@ -179,6 +179,43 @@ function displayComment(comment) {
 
 
 
+document.addEventListener("DOMContentLoaded", function() {
+  const lazyDivs = document.querySelectorAll('.lazy-load');
+
+  const loadContent = (div) => {
+    const url = div.dataset.contentUrl;
+    const spinner = div.querySelector('.loading-spinner');
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        div.innerHTML = data;
+        div.classList.remove('lazy-load'); // Optionally remove class
+        if (spinner) spinner.style.display = 'none'; // Hide spinner
+      })
+      .catch(error => {
+        console.error('Error loading content:', error);
+        if (spinner) spinner.textContent = 'Failed to load content';
+      });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadContent(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+
+    lazyDivs.forEach(div => observer.observe(div));
+  } else {
+    // Fallback for older browsers
+    lazyDivs.forEach(div => loadContent(div));
+  }
+});
+
+
 
 
 
