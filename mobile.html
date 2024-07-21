@@ -33,7 +33,7 @@ padding: 10px 20;
 <style>
   .segment {
       height: 100vh; /* Full viewport height */
-      border-bottom: 0px solid #ccc;
+      border-bottom: 1px solid #ccc;
   }
   .hidden {
       display: none;
@@ -156,6 +156,7 @@ background: yellow;
 <a style="text-align: center;color:rgb(251, 255, 0); font-family:sans-serif;font-size:1.1em;" href="#mags">magazines |</a>
 <a style="text-align: center; color:rgb(251, 255, 0); font-family:sans-serif;font-size:1.1em;" href="#podcast">podcasts</a>
 
+<div class="hidden segment" id="segment2"></div>
 
 <br>
 <br>
@@ -184,7 +185,7 @@ background: yellow;
     <br>
     <br>
 
-    <div class="hidden segment" id="segment2">
+    
 
 <!-- SUMERIAN  -->
 
@@ -736,6 +737,8 @@ background: yellow;
   // Additional logic to reveal segment 3 only when segment 2 is fully visible
   observer.observe(document.getElementById('segment3'));
 </script>
+
+
 </center>
 </body>
 <center>
